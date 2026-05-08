@@ -52,6 +52,7 @@ If it is already initialized, keep existing artifacts and continue.
 ### 4) Import LIDR AI Specs Into the Project
 
 Copy this repository's baseline files into the target project **without overwriting existing files**.
+Keep the source `README.md` as onboarding instructions inside `ai-specs/` instead of replacing the project's root README.
 
 Recommended automation sequence:
 
@@ -59,12 +60,16 @@ Recommended automation sequence:
 tmp_dir="$(mktemp -d)"
 git clone --depth 1 https://github.com/alvaromoya/LIDR-ai-specs.git "$tmp_dir/LIDR-ai-specs"
 cp -rn "$tmp_dir/LIDR-ai-specs/"* .
+mkdir -p ai-specs
+cp -n "$tmp_dir/LIDR-ai-specs/README.md" "ai-specs/specboot-instructions.md"
+rm -rf "$tmp_dir"
 ```
 
 Important:
-- Use `cp -rn` exactly to preserve existing project files (especially existing `README.md`)
+- Use `cp -rn` exactly to preserve existing project files (especially existing root `README.md`)
+- Store template onboarding instructions at `ai-specs/specboot-instructions.md` for future setup reference
 - Keep hidden directories such as `.claude/` and `.cursor/` when present in source
-- Remove temporary clone after copy
+- Remove temporary clone after copy (`rm -rf "$tmp_dir"`)
 
 ### 5) Ensure OpenSpec Config Includes This Technical Context
 

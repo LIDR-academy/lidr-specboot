@@ -100,3 +100,15 @@ For frontend workflows or frontend/backend integration changes:
 - Manual testing tasks explicitly state "AGENT MUST EXECUTE"
 - Database restoration steps are included for mutating operations
 - E2E step is present when frontend workflow impact exists
+
+### 6.7 Mandatory artifact updates for change requests between `/apply` and `/archive`
+
+If a new fix/change is requested after `/apply` and before `/archive`, treat it as a spec update first (never code-only first).
+
+Required order:
+1. Update affected OpenSpec artifacts (scenarios, requirements/specs, `tasks.md`).
+2. Re-run artifact generation/update step when needed (`/continue`, `/ff`, or equivalent).
+3. Implement code only after artifacts reflect the new request.
+4. Re-run verification against updated artifacts before archiving.
+
+Do not close this window with direct coding that is not reflected in OpenSpec artifacts.

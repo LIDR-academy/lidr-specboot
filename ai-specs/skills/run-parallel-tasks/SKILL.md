@@ -1,13 +1,13 @@
 ---
 name: run-parallel-tasks
-description: Run N feature tasks in parallel, each in its own worktree, following the full specboot pipeline (enrich → new → ff → apply → verify). Stops after verify — no archive, no commit, no cleanup. Triggered when the user says "run parallel-tasks.md" or "run the tasks".
+description: Run N feature tasks in parallel, each in its own worktree, following the full specboot pipeline (enrich → new → ff → apply → verify). Stops after verify — no archive, no commit, no cleanup. Explicit task arguments override `parallel-tasks.md`; file is fallback only.
 author: LIDR.co
-version: 1.0.0
+version: 1.1.0
 ---
 
 # run-parallel-tasks Skill
 
-Reads `parallel-tasks.md` from the references subfolder, spins up one isolated agent per task, and runs each through the full specboot pipeline without supervision.
+Resolves tasks from explicit command arguments first, otherwise reads `parallel-tasks.md` from the references subfolder. Then spins up one isolated agent per task and runs each through the full specboot pipeline without supervision.
 
 **Pipeline per agent:** worktree → enrich-us → opsx:new → opsx:ff → opsx:apply → opsx:verify → stop
 
@@ -16,21 +16,30 @@ Reads `parallel-tasks.md` from the references subfolder, spins up one isolated a
 - User says "run parallel-tasks.md"
 - User says "run the tasks" (when `parallel-tasks.md` exists in root)
 - User says "start the parallel tasks"
+- User provides explicit task arguments, for example: "run parallel tasks SCRUM-83 SCRUM-84"
 
 ## Instructions
 
-### Step 1 — Read and parse parallel-tasks.md
+### Step 1 — Resolve task source (arguments first, file fallback)
 
-Read `parallel-tasks.md` from the references subfolder.
+Parse user input for explicit task arguments after the trigger phrase (for example, in `run parallel tasks SCRUM-83 SCRUM-84`, the arguments are `SCRUM-83` and `SCRUM-84`).
 
-Extract every uncommented task block. A task block starts with `### Task` and contains:
-- `name:` — kebab-case change name (required)
-- `us:` — source type: `inline`, a file path, or a Jira ticket ID (required)
-- `description:` — inline US text (required when `us: inline`)
+If one or more explicit task arguments are present:
+- Do **not** read `parallel-tasks.md`.
+- Build tasks directly from arguments.
+- For each argument `<TASK_ID>`, create:
+  - `name: <TASK_ID>` lowercased to kebab-case
+  - `us: <TASK_ID>` (treat as Jira source unless it clearly matches a file path)
+- Announce: "Using explicit task arguments (overriding file): name-1, name-2, ..."
 
-Skip any task block wrapped in `<!-- -->` comments.
-
-Announce: "Found N task(s): name-1, name-2, ..."
+If no explicit task arguments are present:
+- Read `parallel-tasks.md` from the references subfolder.
+- Extract every uncommented task block. A task block starts with `### Task` and contains:
+  - `name:` — kebab-case change name (required)
+  - `us:` — source type: `inline`, a file path, or a Jira ticket ID (required)
+  - `description:` — inline US text (required when `us: inline`)
+- Skip any task block wrapped in `<!-- -->` comments.
+- Announce: "Found N task(s): name-1, name-2, ..."
 
 ### Step 2 — Enrich US for each task
 

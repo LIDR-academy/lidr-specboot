@@ -1,12 +1,12 @@
-# Spec-Driven Development Setup Instructions for LIDR AI Specs
+# Spec-Driven Development Setup Instructions for LIDR Specboot
 
 **Purpose**: These instructions tell any coding agent how to install and configure this repository's OpenSpec-aligned workflow into any target project automatically.
 
 Repository source:
-- `https://github.com/LIDR-academy/ai-specs`
+- `https://github.com/LIDR-academy/lidr-specboot`
 
 Raw setup file URL:
-- `https://raw.githubusercontent.com/LIDR-academy/ai-specs/main/setup-sdd.md`
+- `https://raw.githubusercontent.com/LIDR-academy/lidr-specboot/main/setup-sdd.md`
 
 ---
 
@@ -62,28 +62,7 @@ openspec init
 
 If it is already initialized, keep existing artifacts and continue.
 
-### 5) Import or Refresh LIDR AI Specs Into the Project
-
-Use one of these automated paths:
-
-- Preferred (works for plugin users and npm users):
-
-```bash
-npx -y @lidr/lidr-specboot@latest .
-```
-
-- Alternative (if `lidr-specboot` is already available in PATH):
-
-```bash
-lidr-specboot .
-```
-
-Behavior expectations:
-- The bootstrap is non-destructive: it copies missing files and skips existing ones.
-- It creates the expected symlinks for `.claude` and `.cursor` when missing.
-- It keeps the project's existing root `README.md`.
-
-If the command is unavailable due to network or registry restrictions, use the fallback clone/copy sequence below.
+### 4) Import LIDR Specboot Into the Project
 
 Copy this repository's baseline files into the target project **without overwriting existing files**.
 Keep the source `README.md` as onboarding instructions inside `ai-specs/` instead of replacing the project's root README.
@@ -92,10 +71,10 @@ Recommended automation sequence:
 
 ```bash
 tmp_dir="$(mktemp -d)"
-git clone --depth 1 https://github.com/alvaromoya/LIDR-ai-specs.git "$tmp_dir/LIDR-ai-specs"
-cp -rn "$tmp_dir/LIDR-ai-specs/"* .
+git clone --depth 1 https://github.com/LIDR-academy/lidr-specboot.git "$tmp_dir/lidr-specboot"
+cp -rn "$tmp_dir/lidr-specboot/"* .
 mkdir -p ai-specs
-cp -n "$tmp_dir/LIDR-ai-specs/README.md" "ai-specs/specboot-instructions.md"
+cp -n "$tmp_dir/lidr-specboot/README.md" "ai-specs/specboot-instructions.md"
 rm -rf "$tmp_dir"
 ```
 
@@ -149,7 +128,7 @@ Research requirements:
 Prompt example (use with your coding agent to guarantee deep research):
 
 ```text
-Create a first draft of this project's technical context in docs/ using the same structure and file set from LIDR AI Specs.
+Create a first draft of this project's technical context in docs/ using the same structure and file set from LIDR Specboot.
 
 Hard requirements:
 - Perform deep repository research before writing anything.

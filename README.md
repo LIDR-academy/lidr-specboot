@@ -59,7 +59,7 @@ It is an automated alternative to the manual setup steps below (manual steps 1â€
 Open your coding agent in your project root and say:
 
 ```text
-Please read and follow the instructions in this file to set up LIDR's spec-driven development workflow in my project: https://raw.githubusercontent.com/LIDR-academy/ai-specs/main/setup-sdd.md. Curl recommended
+Please read and follow the instructions in this file to set up LIDR's spec-driven development workflow in my project: https://raw.githubusercontent.com/LIDR-academy/lidr-specboot/main/setup-sdd.md. Curl recommended
 ```
 
 The agent will:
@@ -104,7 +104,7 @@ Copy this repository into your project first, so the `docs/` and `ai-specs/` pat
 
 ```bash
 # Clone or copy this repository into your project (`-n`: do not overwrite existing files so you keep project's original README)
-cp -rn LIDR-ai-specs/* your-project/
+cp -rn lidr-specboot/* your-project/
 ```
 
 Alternative for step 2 (Claude Code users):
@@ -196,14 +196,17 @@ The recommended workflow in this repository uses official OpenSpec commands:
 The recommended workflow in this repository uses official OpenSpec commands:
 
 1. **`/enrich-us`** (optional): refine a vague user story or idea
-2. **`/ff`**: create all required OpenSpec artifacts
-3. **`/apply`**: implement tasks one by one
-4. **`/verify`**: validate implementation against the change artifacts
-5. **`/archive`**: archive the completed change
-6. **`/commit`**: create focused commit(s) after verification
+2. **`/new`**: create a new OpenSpec change (currently a copy of `/ff`)
+3. **`/ff`**: create all required OpenSpec artifacts (feature file, tasks, etc.)
+   - Running `/new` followed by `/ff` is equivalent to the `new propose` command
+4. **`/apply`**: implement tasks one by one
+5. **`/verify`**: validate implementation against the change artifacts
+6. **`/adversarial-review`**: independent red-team review before archiving
+7. **`/archive`**: archive the completed change
+8. **`/commit`**: create focused commit(s) after verification
 Workflow reference image:
 
-![OpenSpec custom workflow reference](https://drive.google.com/uc?export=view&id=1H5pAfjzpvYLlaGxJOrd6zox2Q87HxGkh)
+![OpenSpec custom workflow reference](https://drive.google.com/uc?export=view&id=1Bu8hysVBlpBZgH3SVgRh3knHS7W4X5ud)
 
 ### Optional: MCP Integrations (Jira + Playwright)
 
@@ -230,6 +233,7 @@ Optional first step (recommended): create a dedicated worktree before running th
 /ff SCRUM-10
 /apply SCRUM-10
 /verify SCRUM-10
+/adversarial-review SCRUM-10
 /archive SCRUM-10
 /commit
 ```

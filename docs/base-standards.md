@@ -57,3 +57,16 @@ Before starting any of these workflows, verify the session is using Opus high re
 - **External Customization Review**: Whenever customization is introduced outside `ai-specs`, evaluate whether it should be moved into `ai-specs` and replaced with symlinks from the original locations.
 - **Completion Gate**: A change is incomplete if it leaves broken symlinks, stale targets, or duplicated canonical artifacts across agent-specific folders.
 
+## 7. Mandatory OpenSpec Artifact Updates for Post-Apply Changes
+
+When a new fix/change request appears after `opsx:apply` (or `/apply`) and before `opsx:archive` (or `/archive`), agents must treat it as a spec update first, not as an informal "fix this quickly". It's the core principle of openspec, documentation is the source of truth.
+
+Required order:
+
+1. Update the current OpenSpec change artifacts that are affected (for example: scenarios, requirements/specs, and `tasks.md`). Don't add tasks as "bugfixes" but as part of the initial design, thus in the proper section
+2. If artifact regeneration is needed, run the corresponding OpenSpec step (`opsx:continue`, `opsx:ff`, or equivalent) before coding.
+3. Implement code only after artifacts reflect the new request.
+4. Re-run verification against the updated artifacts before archiving.
+
+Do not apply direct code-only fixes in this window without updating OpenSpec artifacts.
+

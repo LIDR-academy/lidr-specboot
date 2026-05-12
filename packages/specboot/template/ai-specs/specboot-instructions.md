@@ -59,7 +59,7 @@ It is an automated alternative to the manual setup steps below (manual steps 1â€
 Open your coding agent in your project root and say:
 
 ```text
-Please read and follow the instructions in this file to set up LIDR's spec-driven development workflow in my project: https://raw.githubusercontent.com/LIDR-academy/ai-specs/main/setup-sdd.md
+Please read and follow the instructions in this file to set up LIDR's spec-driven development workflow in my project: https://raw.githubusercontent.com/LIDR-academy/lidr-specboot/main/setup-sdd.md
 ```
 
 The agent will:
@@ -104,7 +104,7 @@ Copy this repository into your project first, so the `docs/` and `ai-specs/` pat
 
 ```bash
 # Clone or copy this repository into your project (`-n`: do not overwrite existing files so you keep project's original README)
-cp -rn LIDR-ai-specs/* your-project/
+cp -rn lidr-specboot/* your-project/
 ```
 
 Alternative for step 2 (Claude Code users):

@@ -59,7 +59,7 @@ It is an automated alternative to the manual setup steps below (manual steps 1â€
 Open your coding agent in your project root and say:
 
 ```text
-Please read and follow the instructions in this file to set up LIDR's spec-driven development workflow in my project: https://raw.githubusercontent.com/LIDR-academy/lidr-specboot/main/setup-sdd.md. Curl recommended
+Please read and follow the instructions in this file to set up LIDR's spec-driven development workflow in my project: https://raw.githubusercontent.com/LIDR-academy/lidr-specboot/setup-sdd/setup-sdd.md. Curl recommended
 ```
 
 The agent will:
